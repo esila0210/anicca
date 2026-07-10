@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANICCA - Gelişmiş Takip & Mühendislik Analiz Sistemi</title>
-    <!-- Tailwind CSS ve Google Fonts CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Prata&display=swap" rel="stylesheet">
-    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
@@ -18,9 +16,7 @@
 </head>
 <body class="bg-[#FAF6EE] text-[#1A1A1A] min-h-screen">
 
-    <!-- ANA GÖRÜNÜM (MAIN VIEW) -->
     <div id="main-view" class="theme-transition min-h-screen p-4 md:p-8 flex flex-col justify-between">
-        <!-- ÜST BAR: Başlık ve Limit Ayarı -->
         <header class="max-w-4xl w-full mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-current/10 pb-6">
             <h1 class="serif-font text-3xl tracking-wide">ANICCA</h1>
             <div class="flex items-center gap-3 bg-current/5 px-4 py-2 rounded-full border border-current/10">
@@ -29,7 +25,6 @@
             </div>
         </header>
 
-        <!-- ANA İÇERİK ALANI -->
         <main class="max-w-xl w-full mx-auto my-8 flex flex-col items-center text-center flex-grow justify-center gap-8">
             <div class="space-y-2">
                 <p class="text-xs uppercase tracking-widest opacity-60">Bugün Tüketilen</p>
@@ -49,13 +44,12 @@
             <div id="kriz-panel" class="hidden w-full border border-current/20 rounded-2xl p-6 bg-current/5 backdrop-blur-sm mt-4">
                 <div class="flex justify-between items-center mb-4">
                     <span class="text-xs uppercase tracking-widest font-bold opacity-70">Farkındalık Molası</span>
-                    <span id="timer" class="serif-font text-2xl font-bold text-red-500">01:00</span>
+                    <span id="timer" class="serif-font text-2xl font-bold text-[#FAF6EE]">01:00</span>
                 </div>
                 <p id="tavsiye-metni" class="text-sm leading-relaxed text-left opacity-90 font-light"></p>
             </div>
         </main>
 
-        <!-- ÖZET VE GÜNLÜK GRAFİK PANELLERİ -->
         <section class="max-w-4xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-current/10 pt-8 mb-8">
             <div class="bg-current/5 p-6 rounded-2xl border border-current/10 flex flex-col justify-center items-center text-center">
                 <p class="text-xs uppercase tracking-widest opacity-60 mb-2 font-medium">Tertemiz (Dumansız) Gün Sayısı</p>
@@ -68,7 +62,6 @@
             </div>
         </section>
 
-        <!-- HAFTALIK GRAFİK VE SAYFA GEÇİŞ BUTONU -->
         <footer class="max-w-4xl w-full mx-auto border-t border-current/10 pt-8 flex flex-col gap-6">
             <div>
                 <h2 class="serif-font text-xl mb-4 tracking-wide text-center sm:text-left">Haftalık Duygu Analizi</h2>
@@ -84,7 +77,6 @@
         </footer>
     </div>
 
-    <!-- YENİ SAYFA: 12 AYLIK DETAYLI ANALİZ GÖRÜNÜMÜ -->
     <div id="analytics-view" class="hidden min-h-screen bg-[#FAF6EE] text-[#1A1A1A] p-4 md:p-8 flex flex-col justify-between">
         <header class="max-w-4xl w-full mx-auto flex justify-between items-center border-b border-black/10 pb-6">
             <h1 class="serif-font text-2xl tracking-wide uppercase">GELISMIS YILLIK RAPOR</h1>
@@ -94,19 +86,16 @@
         </header>
 
         <main class="max-w-4xl w-full mx-auto my-8 flex-grow space-y-6">
-            <!-- Aylık Karşılaştırma Özet Kartı -->
             <div class="bg-black/5 p-6 rounded-2xl border border-black/5">
                 <h3 class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-2">AYLIK DURUM KARSILASTIRMASI</h3>
                 <p id="monthly-comparison-text" class="text-sm font-light leading-relaxed"></p>
             </div>
 
-            <!-- Davranışsal Terapi Paneli: Aktivite Tavsiyesi (Koyu Gri Tema) -->
             <div class="bg-black/5 p-6 rounded-2xl border border-black/5 border-l-4 border-gray-600">
                 <h3 class="text-xs uppercase tracking-widest text-gray-700 font-bold mb-2">DUYGU DURUMUNUZA OZEL AKTIVITE TAVSIYESI</h3>
                 <p id="emotion-recommendation-text" class="text-sm font-light leading-relaxed text-gray-700"></p>
             </div>
 
-            <!-- Yıllık Grafikler Düzeni -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
                 <div class="bg-black/5 p-4 rounded-2xl border border-black/5">
                     <h3 class="serif-font text-lg mb-4 text-center tracking-wide">12 AYLIK TUKETIM TRENDI</h3>
@@ -124,7 +113,6 @@
         </footer>
     </div>
 
-    <!-- MODAL: DUYGU SEÇİMİ -->
     <div id="emotion-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
         <div class="bg-[#FAF6EE] text-[#1A1A1A] p-6 md:p-8 rounded-3xl max-w-md w-full border border-black/10 shadow-2xl space-y-6">
             <div class="text-center">
@@ -137,13 +125,11 @@
                 <button class="emotion-option w-full py-3 px-4 rounded-xl border border-gray-200 text-left hover:bg-black/5 font-medium transition-colors" data-emotion="Sosyal Ortam">👥 Sosyal Ortam</button>
                 <button class="emotion-option w-full py-3 px-4 rounded-xl border border-gray-200 text-left hover:bg-black/5 font-medium transition-colors" data-emotion="Alışkanlık/Rutin">🔄 Alışkanlık/Rutin</button>
                 <button class="emotion-option w-full py-3 px-4 rounded-xl border border-gray-200 text-left hover:bg-black/5 font-medium transition-colors" data-emotion="Öfke/Üzüntü">🌊 Öfke/Üzüntü</button>
-                <!-- Mühendislik Kriz Butonu -->
                 <button class="emotion-option w-full py-3 px-4 rounded-xl border border-indigo-300 text-left bg-indigo-50/50 hover:bg-indigo-50 font-semibold text-indigo-900 transition-colors" data-emotion="EEM Okuyorum">🎓 EEM Okuyorum</button>
             </div>
         </div>
     </div>
 
-    <!-- SİSTEM SCRIPT YAPISI -->
     <script>
         let parsedLogs = [];
         try {
@@ -167,7 +153,7 @@
             "Nikotin, beynini sahte bir dopamin (mutluluk hormonu) salgısıyla kandırmaya çalışıyor. Şu an hissettiğin o yoğun istek aslında biyolojik bir illüzyon. Arkana yaslan, omuzlarını serbest bırak ve bu hormon dalgasının sönümlenmesini bekle.",
             "Kriz anında akciğerlerine çekeceğin derin ve temiz hava, sigara dumanından çok daha hızlı bir şekilde beynini rahatlatır. Gözlerini kapat, ciğerlerinin hava ile doluşunu hisset. Bu dürtü sadece birkaç dakika sürecek.",
             "Stres ve arzu anında kasların istemsizce kasılır. Şimdi yumruklarını sıkıca sık, 5 saniye boyunca tüm gücünle tut ve ardından tamamen serbest bırak. Bedenindeki fiziksel gerginliğin bu gevşemeyle nasıl azaldığını fark et.",
-            "Sigarayı yaktığında kalbin dakikada 10 ila 20 atım daha hızlı vurmaya başlayacak. Zaten gergin ve alarm durumunda olan kalbine bu yükü bindirme. Elini kalbine koy, ritmini hisset ve ona kendi kendine sakinleşmesi için alan tanı.",
+            "Sigarayı yaktığında kalbin dakikada 10 ila 20 atım daha hızlı vurmaya başlayacak. Zaten gergin ve alarm durumunda olan kalbine bu yükü bindirme. Elini kalbine koy, ritmini hisset ogona kendi kendine sakinleşmesi için alan tanı.",
             "Zihnindeki o duman arzusu tamamen geçici bir sinirsel sinyal. Dilini damağına bastır ve ağzındaki hissi fark et. Bir nane çiğnemek veya diş fırçalamak, tat alıcılarını uyararak nikotin krizini saniyeler içinde bloke edebilir.",
             "Sigarayı içmediğin her dakika vücudun karbonmonoksiti temizliyor ve hücrelerine daha çok oksijen taşıyor. Şu an yakacağın bir sigara bu muazzam iç temizlik sürecini sıfırlayacak. Hücrelerinin nefes almasına izin ver.",
             "Zihnin şu an tamamen nikotine kilitlenmiş durumda. Bu odağı kırmak için hemen etrafındaki 3 nesneye dikkatlice bak, duyduğun 2 farklı sesi ayırt et... Odak dağıldıkça kriz de sönecek.",
@@ -211,12 +197,12 @@
             let bgColor, textColor, btnBg, btnText, btnBorder;
 
             if (todayCount > state.dailyLimit) {
-                // GÜNCELLEME: Limit aşımında daha parlak/canlı bir kırmızı tonu
+                // GÜNCELLEME: Limit aşımında arka plan parlak kırmızı, tüm açık metin/buton renkleri ise kırık beyaz (#FAF6EE)
                 bgColor = "rgb(220, 38, 38)"; 
-                textColor = "rgb(250, 246, 238)";
-                btnBg = "rgb(250, 246, 238)";
+                textColor = "rgb(250, 246, 238)"; // Kırık beyaz tonu
+                btnBg = "rgb(250, 246, 238)";     // Kırık beyaz tonu
                 btnText = "rgb(220, 38, 38)";
-                btnBorder = "rgb(250, 246, 238)";
+                btnBorder = "rgb(250, 246, 238)"; // Kırık beyaz tonu
                 limitStatus.innerText = "Günlük sınırınızı aştınız. Kendinizi yargılamadan derin bir nefes alın, zihni sakinleştirin.";
             } else {
                 const r = Math.round(250 - (250 - 18) * ratio);
@@ -372,7 +358,6 @@
             });
         }
 
-        // ================= 12 AYLIK DETAYLI ANALİZ VE DAVRANIŞ MOTORU =================
         function initLongtermView() {
             if (typeof Chart === 'undefined') return;
             const aylar = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];

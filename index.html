@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anicca - Gelişmiş Takip & Davranışsal Analiz Sistemi</title>
+    <title>Anicca - Gelişmiş Takip & Mühendislik Analiz Sistemi</title>
     <!-- Tailwind CSS ve Google Fonts CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Prata&display=swap" rel="stylesheet">
@@ -94,19 +94,19 @@
         </header>
 
         <main class="max-w-4xl w-full mx-auto my-8 flex-grow space-y-6">
-            <!-- 1. KART: Aylık Karşılaştırma Özet Kartı -->
+            <!-- Aylık Karşılaştırma Özet Kartı -->
             <div class="bg-black/5 p-6 rounded-2xl border border-black/5">
                 <h3 class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-2">Aylık Durum Karşılaştırması</h3>
                 <p id="monthly-comparison-text" class="text-sm font-light leading-relaxed"></p>
             </div>
 
-            <!-- YENİ 2. KART: En Çok Tetiklenen Duygu Durumuna Göre Aktivite Tavsiyesi -->
+            <!-- Davranışsal Terapi Paneli: Aktivite Tavsiyesi -->
             <div class="bg-black/5 p-6 rounded-2xl border border-black/5 border-l-4 border-indigo-500">
                 <h3 class="text-xs uppercase tracking-widest text-indigo-600 font-bold mb-2">Duygu Durumunuza Özel Aktivite Tavsiyesi</h3>
                 <p id="emotion-recommendation-text" class="text-sm font-light leading-relaxed text-gray-800"></p>
             </div>
 
-            <!-- Grafikler Düzeni -->
+            <!-- Yıllık Grafikler Düzeni -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
                 <div class="bg-black/5 p-4 rounded-2xl border border-black/5">
                     <h3 class="serif-font text-lg mb-4 text-center">12 Aylık Tüketim Trendi</h3>
@@ -120,11 +120,11 @@
         </main>
 
         <footer class="max-w-4xl w-full mx-auto border-t border-black/10 pt-6 text-center text-xs text-gray-400 font-light">
-            Anicca Analitik Motoru v2.5 - Tüm veriler tarayıcınızda şifrelenmiştir.
+            Anicca Analitik Motoru v2.7 - Tüm veriler tarayıcınızda şifrelenmiştir.
         </footer>
     </div>
 
-    <!-- MODAL: DUYGU SEÇİMİ -->
+    <!-- MODAL: DUYGU SEÇİMİ (EEM seçeneği dahil) -->
     <div id="emotion-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
         <div class="bg-[#FAF6EE] text-[#1A1A1A] p-6 md:p-8 rounded-3xl max-w-md w-full border border-black/10 shadow-2xl space-y-6">
             <div class="text-center">
@@ -137,18 +137,33 @@
                 <button class="emotion-option w-full py-3 px-4 rounded-xl border border-gray-200 text-left hover:bg-black/5 font-medium transition-colors" data-emotion="Sosyal Ortam">👥 Sosyal Ortam</button>
                 <button class="emotion-option w-full py-3 px-4 rounded-xl border border-gray-200 text-left hover:bg-black/5 font-medium transition-colors" data-emotion="Alışkanlık/Rutin">🔄 Alışkanlık/Rutin</button>
                 <button class="emotion-option w-full py-3 px-4 rounded-xl border border-gray-200 text-left hover:bg-black/5 font-medium transition-colors" data-emotion="Öfke/Üzüntü">🌊 Öfke/Üzüntü</button>
+                <!-- Mühendislik Kriz Butonu -->
+                <button class="emotion-option w-full py-3 px-4 rounded-xl border border-indigo-300 text-left bg-indigo-50/50 hover:bg-indigo-50 font-semibold text-indigo-900 transition-colors" data-emotion="EEM Okuyorum">🎓 EEM Okuyorum</button>
             </div>
         </div>
     </div>
 
     <!-- SİSTEM SCRIPT YAPISI -->
     <script>
+        // Tarayıcı Hafızasından Verilerin Güvenli ve Çökmesiz Çekilmesi
+        let parsedLogs = [];
+        try {
+            let rawLogs = localStorage.getItem('smokeLogs');
+            parsedLogs = JSON.parse(rawLogs);
+            if (!Array.isArray(parsedLogs)) parsedLogs = [];
+        } catch(e) {
+            parsedLogs = [];
+        }
+
+        let parsedLimit = parseInt(localStorage.getItem('dailyLimit'));
+        if (isNaN(parsedLimit) || parsedLimit <= 0) parsedLimit = 10;
+
         let state = {
-            dailyLimit: parseInt(localStorage.getItem('dailyLimit')) || 10,
-            logs: JSON.parse(localStorage.getItem('smokeLogs')) || []
+            dailyLimit: parsedLimit,
+            logs: parsedLogs
         };
 
-        // İstediğin 10 Yeni Gelişmiş Farkındalık Cümlesinin Havuza Eklenmesi
+        // 10 Gelişmiş Farkındalık Cümlesi Havuzu
         const krizTavsiyeleri = [
             "Hemen bir yudum soğuk su iç ve yutmadan önce 5 saniye ağzında tut. Susuzluk hissi zihin tarafından nikotin krizleriyle karıştırılabilir. Suyun serinliğini ve o an zihninden geçen düşünceleri sadece yargılamadan izle.",
             "Nikotin, beynini sahte bir dopamin (mutluluk hormonu) salgısıyla kandırmaya çalışıyor. Şu an hissettiğin o yoğun istek aslında biyolojik bir illüzyon. Arkana yaslan, omuzlarını serbest bırak ve bu hormon dalgasının sönümlenmesini bekle.",
@@ -157,9 +172,9 @@
             "Sigarayı yaktığında kalbin dakikada 10 ila 20 atım daha hızlı vurmaya başlayacak. Zaten gergin ve alarm durumunda olan kalbine bu yükü bindirme. Elini kalbine koy, ritmini hisset ve ona kendi kendine sakinleşmesi için alan tanı.",
             "Zihnindeki o duman arzusu tamamen geçici bir sinirsel sinyal. Dilini damağına bastır ve ağzındaki hissi fark et. Bir nane çiğnemek veya diş fırçalamak, tat alıcılarını uyararak nikotin krizini saniyeler içinde bloke edebilir.",
             "Sigarayı içmediğin her dakika vücudun karbonmonoksiti temizliyor ve hücrelerine daha çok oksijen taşıyor. Şu an yakacağın bir sigara bu muazzam iç temizlik sürecini sıfırlayacak. Hücrelerinin nefes almasına izin ver.",
-            "Zihnin şu an tamamen nikotine kilitlenmiş durumda. Bu odağı kırmak için hemen etrafındaki 3 nesneye dikkatlice bak, duyduğun 2 farklı sesi ayırt et ve bastığın zeminin sertliğini hisset. Odak dağıldıkça kriz de sönecek.",
+            "Zihnin şu an tamamen nikotine kilitlenmiş durumda. Bu odağı kırmak için hemen etrafındaki 3 nesneye dikkatlice bak, duyduğun 2 farklı sesi ayırt et... Odak dağıldıkça kriz de sönecek.",
             "Son sigarandan sadece 20 dakika sonra vücudun kendini tamir etmeye başlar. Şu anki istek gerçek bir fiziksel ihtiyaç değil, sadece eski bir alışkanlık refleksidir. Reflekslerine teslim olma, direksiyonun başında sen varsın.",
-            "Omurganı dikleştir ve karnından (diyaframından) derin bir nefes al. Eğik duruş akciğer kapasiteni daraltır ve kaygı hissini tetikler. Dik dur, göğsünü aç ve bu kriz dalgasının seni sarsmadan üzerinden geçip gitmesini izle."
+            "Omurganı dikleştir ve karnından (diyaframından) derin bir nefes al. Eğik duruş kaygı hissini tetikler. Dik dur, göğsünü aç ve bu kriz dalgasının seni sarsmadan üzerinden geçip gitmesini izle."
         ];
 
         let timerInterval = null;
@@ -174,7 +189,7 @@
 
         function getTodayCount() {
             const today = getTodayString();
-            return state.logs.filter(log => log.date === today).length;
+            return state.logs.filter(log => log && log.date === today).length;
         }
 
         const appContainer = document.getElementById('main-view');
@@ -188,9 +203,13 @@
         const tavsiyeMetni = document.getElementById('tavsiye-metni');
         const emotionModal = document.getElementById('emotion-modal');
 
+        // Düzeltilmiş Arayüz ve Dinamik Renk Motoru
         function updateTheme() {
             const todayCount = getTodayCount();
-            limitInput.value = state.dailyLimit;
+            
+            // HATA DÜZELTMESİ 1: Ekranda gösterilen sayaç değerinin güncellenmesi sağlandı.
+            if (counterDisplay) counterDisplay.innerText = todayCount;
+            if (limitInput) limitInput.value = state.dailyLimit;
 
             const ratio = Math.min(todayCount / state.dailyLimit, 1);
             let bgColor, textColor, btnBg, btnText, btnBorder;
@@ -238,17 +257,25 @@
             btnKriz.style.color = textColor;
 
             updateStats();
-            renderHaftalikChart(textColor);
+            
+            // HATA DÜZELTMESİ 2: Grafik modülü CDN gecikmelerine karşı korumaya alındı, kriz sayacını kilitlemesi önlendi.
+            try {
+                renderHaftalikChart(textColor);
+            } catch (e) {
+                console.error("Grafik oluşturulurken bir CDN yükleme hatası oluştu, atlanıyor:", e);
+            }
         }
 
+        // Kriz Zamanlayıcı Fonksiyonu
         function startKrizTimer() {
-            clearInterval(timerInterval);
+            if (timerInterval) clearInterval(timerInterval);
             krizPanel.classList.remove('hidden');
             tavsiyeMetni.innerText = krizTavsiyeleri[Math.floor(Math.random() * krizTavsiyeleri.length)];
 
             let sure = 60;
             btnKriz.disabled = true;
             btnKriz.style.opacity = "0.5";
+            timerDisplay.innerText = "01:00";
 
             timerInterval = setInterval(() => {
                 sure--;
@@ -274,7 +301,7 @@
                 let d = new Date();
                 d.setDate(d.getDate() - i);
                 let dateStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-                let gunlukAdet = state.logs.filter(log => log.date === dateStr).length;
+                let gunlukAdet = state.logs.filter(log => log && log.date === dateStr).length;
                 
                 pastDaysHtml += `
                     <div class="flex justify-between items-center text-sm border-b border-current/10 pb-1 last:border-0">
@@ -291,7 +318,7 @@
                 return;
             }
             const sigaraIçilenGünler = new Set(state.logs.map(log => log.date));
-            const timestamps = state.logs.map(log => new Date(log.date).getTime());
+            const timestamps = state.logs.map(log => log && log.date ? new Date(log.date).getTime() : Date.now());
             const ilkLogTarihi = new Date(Math.min(...timestamps));
             const bugunTarihi = new Date(bugunStr);
             let toplamGunFarki = Math.floor((bugunTarihi - ilkLogTarihi) / (1000 * 60 * 60 * 24));
@@ -314,10 +341,11 @@
         }
 
         function renderHaftalikChart(textColor) {
+            if (typeof Chart === 'undefined') return;
             const ctx = document.getElementById('analyticsChart').getContext('2d');
             const haftaninGunleri = ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'];
-            const duygular = ['Stres', 'Can Sıkıntısı', 'Sosyal Ortam', 'Alışkanlık/Rutin', 'Öfke/Üzüntü'];
-            const renkler = ['#E57373', '#81C784', '#64B5F6', '#FFD54F', '#BA68C8'];
+            const duygular = ['Stres', 'Can Sıkıntısı', 'Sosyal Ortam', 'Alışkanlık/Rutin', 'Öfke/Üzüntü', 'EEM Okuyorum'];
+            const renkler = ['#E57373', '#81C784', '#64B5F6', '#FFD54F', '#BA68C8', '#6366F1'];
             
             let labels = [];
             let datasets = duygular.map((e, idx) => ({ label: e, data: Array(7).fill(0), backgroundColor: renkler[idx] }));
@@ -328,7 +356,7 @@
                 let dateStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
                 labels.push(haftaninGunleri[d.getDay()]);
 
-                state.logs.filter(log => log.date === dateStr).forEach(log => {
+                state.logs.filter(log => log && log.date === dateStr).forEach(log => {
                     let dIndex = duygular.indexOf(log.emotion);
                     if (dIndex !== -1) datasets[dIndex].data[6 - i]++;
                 });
@@ -349,15 +377,16 @@
             });
         }
 
-        // ================= 12 AYLIK ANALİZ VE DUYGU ODAKLI AKTİVİTE MOTORU =================
+        // ================= 12 AYLIK DETAYLI ANALİZ VE DAVRANIŞ MOTORU =================
         function initLongtermView() {
+            if (typeof Chart === 'undefined') return;
             const aylar = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
-            const duygular = ['Stres', 'Can Sıkıntısı', 'Sosyal Ortam', 'Alışkanlık/Rutin', 'Öfke/Üzüntü'];
-            const renkler = ['#E57373', '#81C784', '#64B5F6', '#FFD54F', '#BA68C8'];
+            const duygular = ['Stres', 'Can Sıkıntısı', 'Sosyal Ortam', 'Alışkanlık/Rutin', 'Öfke/Üzüntü', 'EEM Okuyorum'];
+            const renkler = ['#E57373', '#81C784', '#64B5F6', '#FFD54F', '#BA68C8', '#6366F1'];
 
             let labels = [];
             let monthlyTotals = Array(12).fill(0);
-            let emotionCounts = Array(5).fill(0);
+            let emotionCounts = Array(6).fill(0);
 
             const d = new Date();
             for (let i = 11; i >= 0; i--) {
@@ -367,7 +396,7 @@
                 labels.push(`${aylar[m]} ${String(y).slice(-2)}`);
 
                 let matchStr = `${y}-${String(m+1).padStart(2, '0')}`;
-                let monthLogs = state.logs.filter(log => log.date.startsWith(matchStr));
+                let monthLogs = state.logs.filter(log => log && log.date && log.date.startsWith(matchStr));
                 
                 monthlyTotals[11 - i] = monthLogs.length;
                 monthLogs.forEach(log => {
@@ -376,39 +405,43 @@
                 });
             }
 
-            // Grafik 1: 12 Aylık Trend
-            const ctxTrend = document.getElementById('longtermTrendChart').getContext('2d');
-            if (ltTrendChartInstance) ltTrendChartInstance.destroy();
-            ltTrendChartInstance = new Chart(ctxTrend, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Aylık Toplam',
-                        data: monthlyTotals,
-                        borderColor: '#1A1A1A',
-                        backgroundColor: 'rgba(26,26,26,0.05)',
-                        borderWidth: 2,
-                        tension: 0.2,
-                        fill: true
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
+            // Grafik 1: Tüketim Trendi
+            try {
+                const ctxTrend = document.getElementById('longtermTrendChart').getContext('2d');
+                if (ltTrendChartInstance) ltTrendChartInstance.destroy();
+                ltTrendChartInstance = new Chart(ctxTrend, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Aylık Toplam',
+                            data: monthlyTotals,
+                            borderColor: '#1A1A1A',
+                            backgroundColor: 'rgba(26,26,26,0.05)',
+                            borderWidth: 2,
+                            tension: 0.2,
+                            fill: true
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            } catch(e) { console.error(e); }
 
-            // Grafik 2: Yıllık Duygu Dağılımı
-            const ctxEmotion = document.getElementById('longtermEmotionChart').getContext('2d');
-            if (ltEmotionChartInstance) ltEmotionChartInstance.destroy();
-            ltEmotionChartInstance = new Chart(ctxEmotion, {
-                type: 'doughnut',
-                data: {
-                    labels: duygular,
-                    datasets: [{ data: emotionCounts, backgroundColor: renkler }]
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
+            // Grafik 2: Duygu Dağılımı
+            try {
+                const ctxEmotion = document.getElementById('longtermEmotionChart').getContext('2d');
+                if (ltEmotionChartInstance) ltEmotionChartInstance.destroy();
+                ltEmotionChartInstance = new Chart(ctxEmotion, {
+                    type: 'doughnut',
+                    data: {
+                        labels: duygular,
+                        datasets: [{ data: emotionCounts, backgroundColor: renkler }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            } catch(e) { console.error(e); }
 
-            // Gelişmiş Duygu Analizine Göre Aktivite Öneri Algoritması (Yoga, Meditasyon, Koşu, Yürüyüş, Spor)
+            // Yapay Zekâ Destekli Davranışsal Analiz & Aktivite Atama Algoritması
             let maxEmotionIndex = -1;
             let maxEmotionCount = 0;
             for(let i=0; i<emotionCounts.length; i++) {
@@ -420,48 +453,51 @@
 
             let recText = "";
             if (maxEmotionCount === 0) {
-                recText = "Sistemde henüz yeterli veri birikmedi. Sigara içtiğiniz anlardaki duygularınızı kaydettikçe, burası size en uygun spor, yoga veya meditasyon aktivitesini önerecektir.";
+                recText = "Sistemde yeterli veri yok. Sigara içtiğiniz anlardaki duyguları girdikçe size özel terapötik aktiviteler burada listelenecektir.";
             } else {
                 const baskinDuygu = duygular[maxEmotionIndex];
                 switch(baskinDuygu) {
                     case 'Stres':
-                        recText = `Yıllık verilere göre en büyük sigara tetikleyiciniz <strong>⚡ Stres</strong> olarak tespit edildi. Kortizol seviyenizi doğal yollarla düşürmek ve merkezi sinir sisteminizi sakinleştirmek için sigaraya sığınmak yerine günlük 10-15 dakikalık <strong>Zihinsel Meditasyon</strong> ve diyafram nefesi pratiklerini hayatınıza dahil etmeniz önerilir.`;
+                        recText = `Yıllık verilere göre en büyük tetikleyiciniz <strong>⚡ Stres</strong>. Kortizol seviyenizi doğal yollarla dengelemek için sigaraya sığınmak yerine günlük 10-15 dakikalık derin nefes odaklı <strong>Zihinsel Meditasyon</strong> seanslarını hayatınıza dahil etmeniz önerilir.`;
                         break;
                     case 'Can Sıkıntısı':
-                        recText = `Analizlerimize göre sigara rutinleriniz çoğunlukla <strong>☁️ Can Sıkıntısı</strong> anlarında yoğunlaşıyor. Zihnin içine düştüğü o monoton döngüyü kırmak ve beyindeki dopamin seviyesini sağlıklı yoldan yukarı taşımak için kriz anlarında açık havada tempolu bir <strong>Yürüyüş</strong> yapmak veya zihni tamamen yeni bir odağa yönlendirecek motor becerili hobilere başlamak en iyi çözümdür.`;
+                        recText = `Analizlerimize göre sigara rutinleriniz çoğunlukla <strong>☁️ Can Sıkıntısı</strong> anlarında yoğunlaşıyor. Zihnin içine düştüğü o monoton döngüyü kırmak ve beyindeki dopamin seviyesini sağlıklı yoldan yukarı taşımak için kriz anlarında açık havada tempolu bir <strong>Yürüyüş</strong> yapmanız en iyi çözümdür.`;
                         break;
                     case 'Sosyal Ortam':
-                        recText = `Verileriniz, sigara kullanımınızın büyük oranda <strong>👥 Sosyal Ortamlar</strong> ve çevre etkisiyle tetiklendiğini gösteriyor. Sosyal taklit refleksini ve grup baskısını kırmak, ciğerlerinizi temiz hava ile doldurup kendi sınırlarınızı fark etmek için bireysel olarak yapacağınız açık hava <strong>Koşu</strong> antrenmanları veya yüzme gibi odak gerektiren sporlar iradenizi destekleyecektir.`;
+                        recText = `Verileriniz, sigara kullanımınızın büyük oranda <strong>👥 Sosyal Ortamlar</strong> sebebiyle tetikleniyor. Sosyal taklit refleksini kırmak, ciğerlerinizi temiz hava ile doldurup kendi sınırlarınızı fark etmek için bireysel olarak yapacağınız açık hava <strong>Koşu</strong> antrenmanları iradenizi koruyacaktır.`;
                         break;
                     case 'Alışkanlık/Rutin':
-                        recText = `Tüketim analiziniz, sigara eyleminin sizde tamamen otomatik pilota bağlanmış fiziksel bir <strong>🔄 Alışkanlık/Rutin</strong> olduğunu gösteriyor. Beden farkındalığınızı en üst seviyeye çıkarmak, el-ağız kas hafızasını esneterek kırmak ve zihin-beden koordinasyonunu yeniden senkronize etmek için en ideal aktivite düzenli <strong>Yoga</strong> pratikleri veya derin stretching (esneme) seanslarıdır.`;
+                        recText = `Tüketim analiziniz, sigara eyleminin sizde tamamen otomatik pilota bağlanmış fiziksel bir <strong>🔄 Alışkanlık/Rutin</strong> olduğunu gösteriyor. Beden farkındalığınızı en üst seviyeye çıkarmak ve el-ağız kas hafızasını esneterek kırmak için en ideal aktivite düzenli <strong>Yoga</strong> pratikleridir.`;
                         break;
                     case 'Öfke/Üzüntü':
-                        recText = `Verileriniz, duygusal yoğunluğun tavan yaptığı <strong>🌊 Öfke veya Üzüntü</strong> anlarında sigaraya sığındığınızı gösteriyor. İçinizde bloke olan ve sıkışan bu yıkıcı, yoğun enerjiyi dışarı fırlatmanın en sağlıklı yolu; yüksek yoğunluklu <strong>Kardiyo, Ağır Sporlar veya Boks/Kickboks</strong> gibi patlayıcı güç gerektiren spor dallarıyla deşarj olmaktır.`;
+                        recText = `Verileriniz, duygusal yoğunluğun tavan yaptığı <strong>🌊 Öfke veya Üzüntü</strong> anlarında sigaraya yöneldiğinizi gösteriyor. İçinizde bloke olan ve sıkışan bu yoğun enerjiyi dışarı fırlatmanın en sağlıklı yolu; yüksek yoğunluklu <strong>Kardiyo veya Ağır Sporlar</strong> ile deşarj olmaktır.`;
+                        break;
+                    case 'EEM Okuyorum':
+                        recText = `Mevcut istatistiklerinize göre sigara içmenizin temel sebebi <strong>🎓 Elektrik-Elektronik Mühendisliği</strong> olarak tespit edilmiştir! Sinyaller, Laplace dönüşümleri, Matlab projeleri ve devre analizleri beyninizi aşırı yüklemiş (overload). Frekansınızı dengelemek ve sinyal gürültüsünü azaltmak için ağır sporlar yerine temiz havada yürümek, zihni tamamen kapatıp dinlenmek veya kısa süreli meditasyonlar yapmak beyninizdeki koruma rölesini devreye sokacaktır!`;
                         break;
                 }
             }
             document.getElementById('emotion-recommendation-text').innerHTML = recText;
 
-            // Aylık Karşılaştırma Analiz Metni Hesaplama
+            // Aylık Karşılaştırma Analiz Metni
             const buAyStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2, '0')}`;
             let lm = d.getMonth() - 1, ly = d.getFullYear();
             if (lm < 0) { lm = 11; ly--; }
             const gecenAyStr = `${ly}-${String(lm+1).padStart(2, '0')}`;
 
-            const buAyAdet = state.logs.filter(log => log.date.startsWith(buAyStr)).length;
-            const gecenAyAdet = state.logs.filter(log => log.date.startsWith(gecenAyStr)).length;
+            const buAyAdet = state.logs.filter(log => log && log.date && log.date.startsWith(buAyStr)).length;
+            const gecenAyAdet = state.logs.filter(log => log && log.date && log.date.startsWith(gecenAyStr)).length;
 
             let text = "";
             if (gecenAyAdet === 0) {
-                text = `İçinde bulunduğumuz ay toplam <strong>${buAyAdet} adet</strong> sigara kaydı girildi. Karşılaştırma yapabilmek için sistemde geçmiş aylara ait veri bulunması gerekir.`;
+                text = `İçinde bulunduğumuz ay toplam <strong>${buAyAdet} adet</strong> sigara kaydı girildi. Geçmiş aylara ait veri biriktikçe karşılaştırma raporu burada sunulacaktır.`;
             } else {
                 const fark = buAyAdet - gecenAyAdet;
                 const yuzde = Math.abs(Math.round((fark / gecenAyAdet) * 100));
                 if (fark < 0) {
-                    text = `Harika gidiyorsun! Bu ay, geçen aya kıyasla tüketimini <strong>%${yuzde} oranında azalttın</strong>. (Geçen Ay: ${gecenAyAdet} → Bu Ay: ${buAyAdet}). Temiz havaya yaklaşmaktasın!`;
+                    text = `Harika gidiyorsun! Bu ay, geçen aya kıyasla tüketimini <strong>%${yuzde} oranında azalttın</strong>. (Geçen Ay: ${gecenAyAdet} → Bu Ay: ${buAyAdet}).`;
                 } else if (fark > 0) {
-                    text = `Dikkatli olmalısın. Bu ay, geçen aya kıyasla tüketimin <strong>%${yuzde} oranında artış</strong> göstermiş durumda. (Geçen Ay: ${gecenAyAdet} → Bu Ay: ${buAyAdet}). Kriz butonunu daha sık kullanmayı dene.`;
+                    text = `Dikkatli olmalısın. Bu ay, geçen aya kıyasla tüketimin <strong>%${yuzde} oranında artış</strong> gösterdi. (Geçen Ay: ${gecenAyAdet} → Bu Ay: ${buAyAdet}). Kriz butonunu daha aktif kullanmayı dene.`;
                 } else {
                     text = `İstikrar korunuyor. Bu ayki sigara tüketimin, geçen ayki tüketiminle tamamen aynı kalarak dengede duruyor. (Her iki ayda da: ${buAyAdet} adet).`;
                 }
@@ -469,13 +505,20 @@
             document.getElementById('monthly-comparison-text').innerHTML = text;
         }
 
-        // EVENT LISTENERS
+        // EVENT LISTENERS (ETKİLEŞİM YÖNETİMİ)
         btnKriz.addEventListener('click', startKrizTimer);
         btnIctim.addEventListener('click', () => emotionModal.classList.remove('hidden'));
 
         document.querySelectorAll('.emotion-option').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                logSmoke(e.target.getAttribute('data-emotion'));
+                const emotion = btn.getAttribute('data-emotion');
+                
+                // Özel EEM Onay Şartı
+                if (emotion === 'EEM Okuyorum') {
+                    alert('Tmm o zaman iç... ☕⚡ Devre analizi, elektromanyetik dalgalar ve Matlab vize haftası varken akan sular durur, geçerli sebep.');
+                }
+                
+                logSmoke(emotion);
                 emotionModal.classList.add('hidden');
             });
         });
@@ -490,7 +533,7 @@
             updateTheme();
         });
 
-        // SPA Sayfa Yönlendiricileri
+        // Sayfa Değişim Yönlendirmeleri (SPA)
         document.getElementById('btn-go-to-longterm').addEventListener('click', () => {
             document.getElementById('main-view').classList.add('hidden');
             document.getElementById('analytics-view').classList.remove('hidden');
@@ -505,7 +548,7 @@
             updateTheme();
         });
 
-        // Açılış
+        // Uygulama Açılış Çalıştırması
         updateTheme();
     </script>
 </body>

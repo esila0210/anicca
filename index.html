@@ -87,44 +87,44 @@
     <!-- YENİ SAYFA: 12 AYLIK DETAYLI ANALİZ GÖRÜNÜMÜ -->
     <div id="analytics-view" class="hidden min-h-screen bg-[#FAF6EE] text-[#1A1A1A] p-4 md:p-8 flex flex-col justify-between">
         <header class="max-w-4xl w-full mx-auto flex justify-between items-center border-b border-black/10 pb-6">
-            <h1 class="serif-font text-2xl tracking-wide uppercase">Gelişmiş Yıllık Rapor</h1>
-            <button id="btn-back-to-main" class="px-4 py-2 rounded-full bg-[#1A1A1A] text-[#FAF6EE] text-xs font-semibold hover:opacity-90 transition-opacity cursor-pointer">
-                ← Ana Sayfaya Dön
+            <h1 class="serif-font text-2xl tracking-wide uppercase">GELISMIS YILLIK RAPOR</h1>
+            <button id="btn-back-to-main" class="px-4 py-2 rounded-full bg-[#1A1A1A] text-[#FAF6EE] text-xs font-semibold hover:opacity-90 transition-opacity cursor-pointer tracking-wider">
+                ← ANA SAYFAYA DON
             </button>
         </header>
 
         <main class="max-w-4xl w-full mx-auto my-8 flex-grow space-y-6">
             <!-- Aylık Karşılaştırma Özet Kartı -->
             <div class="bg-black/5 p-6 rounded-2xl border border-black/5">
-                <h3 class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-2">Aylık Durum Karşılaştırması</h3>
+                <h3 class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-2">AYLIK DURUM KARSILASTIRMASI</h3>
                 <p id="monthly-comparison-text" class="text-sm font-light leading-relaxed"></p>
             </div>
 
-            <!-- Davranışsal Terapi Paneli: Aktivite Tavsiyesi -->
-            <div class="bg-black/5 p-6 rounded-2xl border border-black/5 border-l-4 border-indigo-500">
-                <h3 class="text-xs uppercase tracking-widest text-indigo-600 font-bold mb-2">Duygu Durumunuza Özel Aktivite Tavsiyesi</h3>
-                <p id="emotion-recommendation-text" class="text-sm font-light leading-relaxed text-gray-800"></p>
+            <!-- Davranışsal Terapi Paneli: Aktivite Tavsiyesi (Koyu Gri Tema) -->
+            <div class="bg-black/5 p-6 rounded-2xl border border-black/5 border-l-4 border-gray-600">
+                <h3 class="text-xs uppercase tracking-widest text-gray-700 font-bold mb-2">DUYGU DURUMUNUZA OZEL AKTIVITE TAVSIYESI</h3>
+                <p id="emotion-recommendation-text" class="text-sm font-light leading-relaxed text-gray-700"></p>
             </div>
 
             <!-- Yıllık Grafikler Düzeni -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
                 <div class="bg-black/5 p-4 rounded-2xl border border-black/5">
-                    <h3 class="serif-font text-lg mb-4 text-center">12 Aylık Tüketim Trendi</h3>
+                    <h3 class="serif-font text-lg mb-4 text-center tracking-wide">12 AYLIK TUKETIM TRENDI</h3>
                     <div class="h-64"><canvas id="longtermTrendChart"></canvas></div>
                 </div>
                 <div class="bg-black/5 p-4 rounded-2xl border border-black/5">
-                    <h3 class="serif-font text-lg mb-4 text-center">Yıllık Duygu Dağılım Payı</h3>
+                    <h3 class="serif-font text-lg mb-4 text-center tracking-wide">YILLIK DUYGU DAGILIM PAYI</h3>
                     <div class="h-64"><canvas id="longtermEmotionChart"></canvas></div>
                 </div>
             </div>
         </main>
 
-        <footer class="max-w-4xl w-full mx-auto border-t border-black/10 pt-6 text-center text-xs text-gray-400 font-light">
-            ANICCA Analitik Motoru v2.7 - Tüm veriler tarayıcınızda şifrelenmiştir.
+        <footer class="max-w-4xl w-full mx-auto border-t border-black/10 pt-6 text-center text-xs text-gray-400 font-light tracking-wider">
+            ANICCA ANALITIK MOTORU v2.7 - TUM VERILER TARAYICINIZDA SIFRELENMISTIR.
         </footer>
     </div>
 
-    <!-- MODAL: DUYGU SEÇİMİ (EEM seçeneği dahil) -->
+    <!-- MODAL: DUYGU SEÇİMİ -->
     <div id="emotion-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
         <div class="bg-[#FAF6EE] text-[#1A1A1A] p-6 md:p-8 rounded-3xl max-w-md w-full border border-black/10 shadow-2xl space-y-6">
             <div class="text-center">
@@ -145,7 +145,6 @@
 
     <!-- SİSTEM SCRIPT YAPISI -->
     <script>
-        // Tarayıcı Hafızasından Verilerin Güvenli ve Çökmesiz Çekilmesi
         let parsedLogs = [];
         try {
             let rawLogs = localStorage.getItem('smokeLogs');
@@ -163,7 +162,6 @@
             logs: parsedLogs
         };
 
-        // 10 Gelişmiş Farkındalık Cümlesi Havuzu
         const krizTavsiyeleri = [
             "Hemen bir yudum soğuk su iç ve yutmadan önce 5 saniye ağzında tut. Susuzluk hissi zihin tarafından nikotin krizleriyle karıştırılabilir. Suyun serinliğini ve o an zihninden geçen düşünceleri sadece yargılamadan izle.",
             "Nikotin, beynini sahte bir dopamin (mutluluk hormonu) salgısıyla kandırmaya çalışıyor. Şu an hissettiğin o yoğun istek aslında biyolojik bir illüzyon. Arkana yaslan, omuzlarını serbest bırak ve bu hormon dalgasının sönümlenmesini bekle.",
@@ -172,7 +170,7 @@
             "Sigarayı yaktığında kalbin dakikada 10 ila 20 atım daha hızlı vurmaya başlayacak. Zaten gergin ve alarm durumunda olan kalbine bu yükü bindirme. Elini kalbine koy, ritmini hisset ve ona kendi kendine sakinleşmesi için alan tanı.",
             "Zihnindeki o duman arzusu tamamen geçici bir sinirsel sinyal. Dilini damağına bastır ve ağzındaki hissi fark et. Bir nane çiğnemek veya diş fırçalamak, tat alıcılarını uyararak nikotin krizini saniyeler içinde bloke edebilir.",
             "Sigarayı içmediğin her dakika vücudun karbonmonoksiti temizliyor ve hücrelerine daha çok oksijen taşıyor. Şu an yakacağın bir sigara bu muazzam iç temizlik sürecini sıfırlayacak. Hücrelerinin nefes almasına izin ver.",
-            "Zihnin şu an tamamen nikotine kilitlenmiş durumda. This odağı kırmak için hemen etrafındaki 3 nesneye dikkatlice bak, duyduğun 2 farklı sesi ayırt et... Odak dağıldıkça kriz de sönecek.",
+            "Zihnin şu an tamamen nikotine kilitlenmiş durumda. Bu odağı kırmak için hemen etrafındaki 3 nesneye dikkatlice bak, duyduğun 2 farklı sesi ayırt et... Odak dağıldıkça kriz de sönecek.",
             "Son sigarandan sadece 20 dakika sonra vücudun kendini tamir etmeye başlar. Şu anki istek gerçek bir fiziksel ihtiyaç değil, sadece eski bir alışkanlık refleksidir. Reflekslerine teslim olma, direksiyonun başında sen varsın.",
             "Omurganı dikleştir ve karnından (diyaframından) derin bir nefes al. Eğik duruş kaygı hissini tetikler. Dik dur, göğsünü aç ve bu kriz dalgasının seni sarsmadan üzerinden geçip gitmesini izle."
         ];
@@ -203,7 +201,6 @@
         const tavsiyeMetni = document.getElementById('tavsiye-metni');
         const emotionModal = document.getElementById('emotion-modal');
 
-        // Düzeltilmiş Arayüz ve Dinamik Renk Motoru
         function updateTheme() {
             const todayCount = getTodayCount();
             
@@ -214,10 +211,11 @@
             let bgColor, textColor, btnBg, btnText, btnBorder;
 
             if (todayCount > state.dailyLimit) {
-                bgColor = "rgb(153, 27, 27)"; 
+                // GÜNCELLEME: Limit aşımında daha parlak/canlı bir kırmızı tonu
+                bgColor = "rgb(220, 38, 38)"; 
                 textColor = "rgb(250, 246, 238)";
                 btnBg = "rgb(250, 246, 238)";
-                btnText = "rgb(153, 27, 27)";
+                btnText = "rgb(220, 38, 38)";
                 btnBorder = "rgb(250, 246, 238)";
                 limitStatus.innerText = "Günlük sınırınızı aştınız. Kendinizi yargılamadan derin bir nefes alın, zihni sakinleştirin.";
             } else {
@@ -260,11 +258,10 @@
             try {
                 renderHaftalikChart(textColor);
             } catch (e) {
-                console.error("Grafik oluşturulurken bir CDN yükleme hatası oluştu, atlanıyor:", e);
+                console.error("Grafik hatası:", e);
             }
         }
 
-        // Kriz Zamanlayıcı Fonksiyonu
         function startKrizTimer() {
             if (timerInterval) clearInterval(timerInterval);
             krizPanel.classList.remove('hidden');
@@ -315,7 +312,6 @@
                 document.getElementById('smoke-free-count').innerText = "0";
                 return;
             }
-            // HATA DÜZELTMESİ: Aradaki hatalı boşluk karakteri temizlendi
             const sigaraIçilenGünler = new Set(state.logs.map(log => log.date));
             const timestamps = state.logs.map(log => log && log.date ? new Date(log.date).getTime() : Date.now());
             const ilkLogTarihi = new Date(Math.min(...timestamps));
@@ -500,7 +496,7 @@
             document.getElementById('monthly-comparison-text').innerHTML = text;
         }
 
-        // EVENT LISTENERS (ETKİLEŞİM YÖNETİMİ)
+        // EVENT LISTENERS
         btnKriz.addEventListener('click', startKrizTimer);
         btnIctim.addEventListener('click', () => emotionModal.classList.remove('hidden'));
 

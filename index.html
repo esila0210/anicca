@@ -165,14 +165,14 @@
 
         // 10 Gelişmiş Farkındalık Cümlesi Havuzu
         const krizTavsiyeleri = [
-            "Hemen bir yudum soğuk su iç ve yutmadan önce 5 saniye ağzında tut. Susuzluk hissi zihin tarafından nikotin krizleriyle karıştırılabilir. Suyun serinliğini và o an zihninden geçen düşünceleri sadece yargılamadan izle.",
+            "Hemen bir yudum soğuk su iç ve yutmadan önce 5 saniye ağzında tut. Susuzluk hissi zihin tarafından nikotin krizleriyle karıştırılabilir. Suyun serinliğini ve o an zihninden geçen düşünceleri sadece yargılamadan izle.",
             "Nikotin, beynini sahte bir dopamin (mutluluk hormonu) salgısıyla kandırmaya çalışıyor. Şu an hissettiğin o yoğun istek aslında biyolojik bir illüzyon. Arkana yaslan, omuzlarını serbest bırak ve bu hormon dalgasının sönümlenmesini bekle.",
             "Kriz anında akciğerlerine çekeceğin derin ve temiz hava, sigara dumanından çok daha hızlı bir şekilde beynini rahatlatır. Gözlerini kapat, ciğerlerinin hava ile doluşunu hisset. Bu dürtü sadece birkaç dakika sürecek.",
             "Stres ve arzu anında kasların istemsizce kasılır. Şimdi yumruklarını sıkıca sık, 5 saniye boyunca tüm gücünle tut ve ardından tamamen serbest bırak. Bedenindeki fiziksel gerginliğin bu gevşemeyle nasıl azaldığını fark et.",
             "Sigarayı yaktığında kalbin dakikada 10 ila 20 atım daha hızlı vurmaya başlayacak. Zaten gergin ve alarm durumunda olan kalbine bu yükü bindirme. Elini kalbine koy, ritmini hisset ve ona kendi kendine sakinleşmesi için alan tanı.",
             "Zihnindeki o duman arzusu tamamen geçici bir sinirsel sinyal. Dilini damağına bastır ve ağzındaki hissi fark et. Bir nane çiğnemek veya diş fırçalamak, tat alıcılarını uyararak nikotin krizini saniyeler içinde bloke edebilir.",
-            "Sigarayı içmediğin her dakika vücudun karbonmonoksiti temizleyiyor ve hücrelerine daha çok oksijen taşıyor. Şu an yakacağın bir sigara bu muazzam iç temizlik sürecini sıfırlayacak. Hücrelerinin nefes almasına izin ver.",
-            "Zihnin şu an tamamen nikotine kilitlenmiş durumda. Bu odağı kırmak için hemen etrafındaki 3 nesneye dikkatlice bak, duyduğun 2 farklı sesi ayırt et... Odak dağıldıkça kriz de sönecek.",
+            "Sigarayı içmediğin her dakika vücudun karbonmonoksiti temizliyor ve hücrelerine daha çok oksijen taşıyor. Şu an yakacağın bir sigara bu muazzam iç temizlik sürecini sıfırlayacak. Hücrelerinin nefes almasına izin ver.",
+            "Zihnin şu an tamamen nikotine kilitlenmiş durumda. This odağı kırmak için hemen etrafındaki 3 nesneye dikkatlice bak, duyduğun 2 farklı sesi ayırt et... Odak dağıldıkça kriz de sönecek.",
             "Son sigarandan sadece 20 dakika sonra vücudun kendini tamir etmeye başlar. Şu anki istek gerçek bir fiziksel ihtiyaç değil, sadece eski bir alışkanlık refleksidir. Reflekslerine teslim olma, direksiyonun başında sen varsın.",
             "Omurganı dikleştir ve karnından (diyaframından) derin bir nefes al. Eğik duruş kaygı hissini tetikler. Dik dur, göğsünü aç ve bu kriz dalgasının seni sarsmadan üzerinden geçip gitmesini izle."
         ];
@@ -315,7 +315,8 @@
                 document.getElementById('smoke-free-count').innerText = "0";
                 return;
             }
-            const sigaraIçilen Günler = new Set(state.logs.map(log => log.date));
+            // HATA DÜZELTMESİ: Aradaki hatalı boşluk karakteri temizlendi
+            const sigaraIçilenGünler = new Set(state.logs.map(log => log.date));
             const timestamps = state.logs.map(log => log && log.date ? new Date(log.date).getTime() : Date.now());
             const ilkLogTarihi = new Date(Math.min(...timestamps));
             const bugunTarihi = new Date(bugunStr);

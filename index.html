@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anicca - Gelişmiş Takip & Mühendislik Analiz Sistemi</title>
+    <title>ANICCA - Gelişmiş Takip & Mühendislik Analiz Sistemi</title>
     <!-- Tailwind CSS ve Google Fonts CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Prata&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
     <div id="main-view" class="theme-transition min-h-screen p-4 md:p-8 flex flex-col justify-between">
         <!-- ÜST BAR: Başlık ve Limit Ayarı -->
         <header class="max-w-4xl w-full mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-current/10 pb-6">
-            <h1 class="serif-font text-3xl tracking-wide uppercase">Anicca</h1>
+            <h1 class="serif-font text-3xl tracking-wide">ANICCA</h1>
             <div class="flex items-center gap-3 bg-current/5 px-4 py-2 rounded-full border border-current/10">
                 <label for="daily-limit" class="text-sm font-medium opacity-80">Günlük Limit:</label>
                 <input type="number" id="daily-limit" value="10" min="1" class="bg-transparent w-16 text-center font-bold border-b border-current focus:outline-none">
@@ -78,7 +78,7 @@
             </div>
             <div class="flex justify-center pb-4">
                 <button id="btn-go-to-longterm" class="px-6 py-3 rounded-xl border border-current/30 text-sm font-medium hover:bg-current/10 transition-colors flex items-center gap-2 cursor-pointer">
-                    📊 12 Aylık Detaylı Analiz Sayfası ↗
+                    12 Aylık Detaylı Analiz Sayfası ↗
                 </button>
             </div>
         </footer>
@@ -120,7 +120,7 @@
         </main>
 
         <footer class="max-w-4xl w-full mx-auto border-t border-black/10 pt-6 text-center text-xs text-gray-400 font-light">
-            Anicca Analitik Motoru v2.7 - Tüm veriler tarayıcınızda şifrelenmiştir.
+            ANICCA Analitik Motoru v2.7 - Tüm veriler tarayıcınızda şifrelenmiştir.
         </footer>
     </div>
 
@@ -165,13 +165,13 @@
 
         // 10 Gelişmiş Farkındalık Cümlesi Havuzu
         const krizTavsiyeleri = [
-            "Hemen bir yudum soğuk su iç ve yutmadan önce 5 saniye ağzında tut. Susuzluk hissi zihin tarafından nikotin krizleriyle karıştırılabilir. Suyun serinliğini ve o an zihninden geçen düşünceleri sadece yargılamadan izle.",
+            "Hemen bir yudum soğuk su iç ve yutmadan önce 5 saniye ağzında tut. Susuzluk hissi zihin tarafından nikotin krizleriyle karıştırılabilir. Suyun serinliğini và o an zihninden geçen düşünceleri sadece yargılamadan izle.",
             "Nikotin, beynini sahte bir dopamin (mutluluk hormonu) salgısıyla kandırmaya çalışıyor. Şu an hissettiğin o yoğun istek aslında biyolojik bir illüzyon. Arkana yaslan, omuzlarını serbest bırak ve bu hormon dalgasının sönümlenmesini bekle.",
             "Kriz anında akciğerlerine çekeceğin derin ve temiz hava, sigara dumanından çok daha hızlı bir şekilde beynini rahatlatır. Gözlerini kapat, ciğerlerinin hava ile doluşunu hisset. Bu dürtü sadece birkaç dakika sürecek.",
             "Stres ve arzu anında kasların istemsizce kasılır. Şimdi yumruklarını sıkıca sık, 5 saniye boyunca tüm gücünle tut ve ardından tamamen serbest bırak. Bedenindeki fiziksel gerginliğin bu gevşemeyle nasıl azaldığını fark et.",
             "Sigarayı yaktığında kalbin dakikada 10 ila 20 atım daha hızlı vurmaya başlayacak. Zaten gergin ve alarm durumunda olan kalbine bu yükü bindirme. Elini kalbine koy, ritmini hisset ve ona kendi kendine sakinleşmesi için alan tanı.",
             "Zihnindeki o duman arzusu tamamen geçici bir sinirsel sinyal. Dilini damağına bastır ve ağzındaki hissi fark et. Bir nane çiğnemek veya diş fırçalamak, tat alıcılarını uyararak nikotin krizini saniyeler içinde bloke edebilir.",
-            "Sigarayı içmediğin her dakika vücudun karbonmonoksiti temizliyor ve hücrelerine daha çok oksijen taşıyor. Şu an yakacağın bir sigara bu muazzam iç temizlik sürecini sıfırlayacak. Hücrelerinin nefes almasına izin ver.",
+            "Sigarayı içmediğin her dakika vücudun karbonmonoksiti temizleyiyor ve hücrelerine daha çok oksijen taşıyor. Şu an yakacağın bir sigara bu muazzam iç temizlik sürecini sıfırlayacak. Hücrelerinin nefes almasına izin ver.",
             "Zihnin şu an tamamen nikotine kilitlenmiş durumda. Bu odağı kırmak için hemen etrafındaki 3 nesneye dikkatlice bak, duyduğun 2 farklı sesi ayırt et... Odak dağıldıkça kriz de sönecek.",
             "Son sigarandan sadece 20 dakika sonra vücudun kendini tamir etmeye başlar. Şu anki istek gerçek bir fiziksel ihtiyaç değil, sadece eski bir alışkanlık refleksidir. Reflekslerine teslim olma, direksiyonun başında sen varsın.",
             "Omurganı dikleştir ve karnından (diyaframından) derin bir nefes al. Eğik duruş kaygı hissini tetikler. Dik dur, göğsünü aç ve bu kriz dalgasının seni sarsmadan üzerinden geçip gitmesini izle."
@@ -207,7 +207,6 @@
         function updateTheme() {
             const todayCount = getTodayCount();
             
-            // HATA DÜZELTMESİ 1: Ekranda gösterilen sayaç değerinin güncellenmesi sağlandı.
             if (counterDisplay) counterDisplay.innerText = todayCount;
             if (limitInput) limitInput.value = state.dailyLimit;
 
@@ -258,7 +257,6 @@
 
             updateStats();
             
-            // HATA DÜZELTMESİ 2: Grafik modülü CDN gecikmelerine karşı korumaya alındı, kriz sayacını kilitlemesi önlendi.
             try {
                 renderHaftalikChart(textColor);
             } catch (e) {
@@ -317,7 +315,7 @@
                 document.getElementById('smoke-free-count').innerText = "0";
                 return;
             }
-            const sigaraIçilenGünler = new Set(state.logs.map(log => log.date));
+            const sigaraIçilen Günler = new Set(state.logs.map(log => log.date));
             const timestamps = state.logs.map(log => log && log.date ? new Date(log.date).getTime() : Date.now());
             const ilkLogTarihi = new Date(Math.min(...timestamps));
             const bugunTarihi = new Date(bugunStr);
@@ -405,7 +403,6 @@
                 });
             }
 
-            // Grafik 1: Tüketim Trendi
             try {
                 const ctxTrend = document.getElementById('longtermTrendChart').getContext('2d');
                 if (ltTrendChartInstance) ltTrendChartInstance.destroy();
@@ -427,7 +424,6 @@
                 });
             } catch(e) { console.error(e); }
 
-            // Grafik 2: Duygu Dağılımı
             try {
                 const ctxEmotion = document.getElementById('longtermEmotionChart').getContext('2d');
                 if (ltEmotionChartInstance) ltEmotionChartInstance.destroy();
@@ -441,7 +437,6 @@
                 });
             } catch(e) { console.error(e); }
 
-            // Yapay Zekâ Destekli Davranışsal Analiz & Aktivite Atama Algoritması
             let maxEmotionIndex = -1;
             let maxEmotionCount = 0;
             for(let i=0; i<emotionCounts.length; i++) {
@@ -479,7 +474,6 @@
             }
             document.getElementById('emotion-recommendation-text').innerHTML = recText;
 
-            // Aylık Karşılaştırma Analiz Metni
             const buAyStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2, '0')}`;
             let lm = d.getMonth() - 1, ly = d.getFullYear();
             if (lm < 0) { lm = 11; ly--; }
@@ -513,7 +507,6 @@
             btn.addEventListener('click', (e) => {
                 const emotion = btn.getAttribute('data-emotion');
                 
-                // Özel EEM Onay Şartı
                 if (emotion === 'EEM Okuyorum') {
                     alert('Tmm o zaman iç... ☕⚡ Devre analizi, elektromanyetik dalgalar ve Matlab vize haftası varken akan sular durur, geçerli sebep.');
                 }
@@ -533,7 +526,6 @@
             updateTheme();
         });
 
-        // Sayfa Değişim Yönlendirmeleri (SPA)
         document.getElementById('btn-go-to-longterm').addEventListener('click', () => {
             document.getElementById('main-view').classList.add('hidden');
             document.getElementById('analytics-view').classList.remove('hidden');
@@ -548,7 +540,6 @@
             updateTheme();
         });
 
-        // Uygulama Açılış Çalıştırması
         updateTheme();
     </script>
 </body>
